@@ -2,8 +2,10 @@ from init import db, ma
 from marshmallow import fields
 from marshmallow.validate import OneOf, Length
 
+# List of valid run types
 VALID_RUNTYPE = ('Easy', 'Recovery', 'Tempo', 'Speed', 'Long Run')
 
+# Create Run Model
 class Run(db.model):
 
     __tablename__ ='runs'
@@ -20,6 +22,7 @@ class Run(db.model):
     user = db.relationship('User', back_populates = 'runs')
     reviews = db.relationship('Review', back_populates = 'runs', cascade = 'all, delete')
 
+# Run schema to jsonify objects
 class RunSchema(ma.Schema):
     user = fields.Nested('UserSchema', only=['name', 'email'])
     reviews = fields.List(fields.Nested('ReviewSchema', exclude = ['run']))

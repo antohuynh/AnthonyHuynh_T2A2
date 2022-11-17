@@ -2,6 +2,7 @@ from init import db, ma
 from marshmallow import fields
 from marshmallow.validate import Length
 
+# Create review model
 class Review(db.Model):
     __tablename__ = 'reviews'
 
@@ -15,6 +16,7 @@ class Review(db.Model):
     user = db.relationship('User', back_populates= 'reviews')
     run = db.relationship('Run', back_populates= 'reviews')
 
+# Review schema to jsonify database objects
 class ReviewSchema(ma.Schema):
 
     user = fields.Nested('UserSchema', only = ['name', 'email'])

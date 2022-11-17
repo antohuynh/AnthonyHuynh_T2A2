@@ -7,6 +7,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity
 
 auth_bp = Blueprint('auth', __name__, url_prefix = '/auth')
 
+# Register a new user
 @auth_bp.route('/register/', methods=['POST'])
 def auth_register():
     try:
@@ -25,6 +26,7 @@ def auth_register():
     except IntegrityError:
         return {'Error': 'Email address has already been registered'}, 409
 
+# Login a registered user
 def auth_login():
     stmt = db.select(User).filter_by(email=request.json['email'])
     user = db.session.scalar(stmt)
@@ -36,6 +38,7 @@ def auth_login():
     else:
         return{'Error': 'Invalid email or password try again'}, 401
 
+# Authorize a registered user
 def authorize():
     stmt = db.select(User).filter_by(id = get_jwt_identity())
     user = db.session.scalar(stmt)

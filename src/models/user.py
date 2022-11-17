@@ -6,6 +6,7 @@ class User(db.Model):
 
     __tablename__ = 'users'
 
+    # User Table Attributes
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     email = db.Column(db.String, nullable=False, unique=True)
@@ -16,6 +17,7 @@ class User(db.Model):
     runs = db.relationship('Run', back_populates = 'user', cascade = 'all, delete')
     reviews = db.relationship('Review', back_populates = 'user', cascade = 'all, delete')
 
+# User schema to jsonify database objects
 class UserSchema(ma.Schema):
 
     runs = fields.List(fields.Nested('RunSchema', only = ['location', 'runtype']))
