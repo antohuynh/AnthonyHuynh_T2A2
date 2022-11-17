@@ -133,7 +133,7 @@ run = db.session.scalar(stmt)
 
 ---
 
-![ERD](docs/ERD.png)
+![ERD](docs/ERD.PNG)
 
 ---
 
