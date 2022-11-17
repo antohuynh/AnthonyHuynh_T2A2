@@ -20,9 +20,9 @@ class Run(db.model):
     user = db.relationship('User', back_populates = 'runs')
     reviews = db.relationship('Review', back_populates = 'runs', cascade = 'all, delete')
 
-class GameSchema(ma.Schema):
+class RunSchema(ma.Schema):
     user = fields.Nested('UserSchema', only=['name', 'email'])
-    reviews = fields.List(fields.Nested('ReviewSchema', exclude = ['game']))
+    reviews = fields.List(fields.Nested('ReviewSchema', exclude = ['run']))
 
 
     runtype = fields.String(validate=OneOf(VALID_RUNTYPE, error=f'Only these specific runtypes are allowed: {VALID_RUNTYPE}'))
