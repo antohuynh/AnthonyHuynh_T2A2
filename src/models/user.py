@@ -17,4 +17,13 @@ class User(db.Model):
     reviews = db.relationship('Review', back_populates = 'user', cascade = 'all, delete')
 
 class UserSchema(ma.Schema):
-    
+
+    runs = fields.List(fields.Nested('RunSchema', only = ['location', 'runtype']))
+    reviews = fields.List(fields.Nested('ReviewSchema', exclude = ['user']))
+
+    email = fields.Email()
+    password = fields.String(validate= Length(min=1))
+
+    class Meta:
+        fields = ('id', 'name', 'email', 'password', 'date_joined', 'is_admin', 'runs', 'reviews')
+        ordered = True
